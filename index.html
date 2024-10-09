@@ -78,14 +78,15 @@
     }); */
     document.addEventListener('mouseover', function(event) {
   const element = event.target;
-
-  // Check if the hovered element is a button
+  
+  // Check if the hovered element is a button or contains useful information
   let elementName;
-  if (element.tagName === 'BUTTON') {
-    // Try to get button text or fallback to id/name if text is empty
-    elementName = element.innerText || element.getAttribute('name') || element.getAttribute('id') || 'Unnamed Button';
+  
+  if (element.tagName === 'BUTTON' || element.getAttribute('type') === 'button') {
+    // Try to get the button's name, id, or text content
+    elementName = element.getAttribute('name') || element.getAttribute('id') || element.innerText || 'Unnamed Button';
   } else {
-    // Use the tag name for non-button elements
+    // Fallback to the tag name for non-button elements
     elementName = element.tagName;
   }
 
@@ -96,6 +97,7 @@
     time: new Date().toISOString(),
   });
 });
+
 
 
     // Custom Click Event Tracking
