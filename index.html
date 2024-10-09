@@ -68,14 +68,35 @@
     }();
 
     // Custom Mouse Hover Tracking
-    document.addEventListener('mouseover', function(event) {
+    /* document.addEventListener('mouseover', function(event) {
       const element = event.target.tagName;
       analytics.track('Mouse Hover', {
         element: element,
         url: window.location.href,
         time: new Date().toISOString(),
       });
-    });
+    }); */
+    document.addEventListener('mouseover', function(event) {
+  const element = event.target;
+
+  // Check if the hovered element is a button
+  let elementName;
+  if (element.tagName === 'BUTTON') {
+    // Try to get button text or fallback to id/name if text is empty
+    elementName = element.innerText || element.getAttribute('name') || element.getAttribute('id') || 'Unnamed Button';
+  } else {
+    // Use the tag name for non-button elements
+    elementName = element.tagName;
+  }
+
+  // Send event to analytics
+  analytics.track('Mouse Hover', {
+    element: elementName,
+    url: window.location.href,
+    time: new Date().toISOString(),
+  });
+});
+
 
     // Custom Click Event Tracking
     document.addEventListener('click', function(event) {
